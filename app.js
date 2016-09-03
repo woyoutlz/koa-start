@@ -7,10 +7,11 @@ app.context.render = render({
   autoescape: true,
   cache: false, // disable, set to false 
   ext: 'html',
-  varControls:['{{ ', ' }}'] 
+  varControls: ['{{ ', ' }}']
 });
-app.use(function *(){
-  yield this.render('index',{name:"yangyu"});
+
+app.use(function* () {
+  yield this.render('index', { name: "yangyu" });
 });
 
 app.listen(3000);
