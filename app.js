@@ -12,6 +12,15 @@ app.context.render = render({
   ext: 'html',
   varControls: ['{{ ', ' }}']
 });
+app.use(function*(next) {
+	  this; // is the Context
+  	this.request; // is a koa Request
+  	this.response; // is a koa Response
+
+    console.log('start');
+    yield next;
+    console.log('end');
+});
 app
   .use(router.routes())
   .use(router.allowedMethods());
