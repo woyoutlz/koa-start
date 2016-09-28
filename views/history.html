@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>历史</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+        ul span{
+            margin-right: 30px
+        }
+        .met_item{
+            cursor: pointer;
+        }
+        .met_item:hover{
+            background: gainsboro;
+        }
+    </style>
+</head>
+<body id="app">
+<h1>{{name}}</h1>
+<table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>watch_id</th>
+            <th>module</th>
+            <th>name</th>
+            <th>检查时间</th>
+            <th>触发值</th>
+            <th>执行成功</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="met_item" v-for="met in mets" v-on:click="met_detail(met)">
+            <td>{{$index+1}}</td>
+            <td>{{met._source.rule_id}}</td>
+            <td>{{met._source.module}}</td>
+            <td>{{met._source.name}}</td>
+            <td>{{idtime(met._source.run_time)}}</td>
+            <td>{{met._source.trigger_value}}</td>
+            <td>{{met._source.is_run_ok}}</td>
+          </tr>
+        </tbody>
+      </table>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      <pre>
+{{show_met_info}}
+        </pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+<script type="text/javascript">
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+    var query = getQueryParams(document.location.search);
+    console.log(query)
+    var app = new Vue({
+    el: '#app',
+    data: {
+        name: 'history',
+        mets:[],
+        show_met_info:""
+    },
+    methods: {
+        init:function(){
+            if (query.watch_id){
+                 if(query.run=="1"){
+                var url ="/history_run/"+query.watch_id 
+                $.get(url,function(data){
+                console.log(data[0])
+                app.mets = data
+                })
+                }else{
+                var url ="/history_page/"+query.watch_id 
+                $.get(url,function(data){
+                console.log(data[0])
+                app.mets = data
+                })
+                }
+            }else{
+                $.get("/history_page",function(data){
+                console.log(data[0])
+                app.mets = data
+            })
+            }
+        },
+        idtime: function(ruleid) {
+            return moment.unix(ruleid).format("YYYY-MM-DD HH:mm:ss")
+        },
+        met_detail:function(met){
+             app.show_met_info = JSON.stringify(met,null,2)
+             $('#myModal').modal('toggle')
+            // alert(JSON.stringify(met,null,2))
+        }
+    }
+})
+    app.init()
+</script>
+</body>
+</html>
