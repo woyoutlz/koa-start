@@ -1,5 +1,12 @@
 var router = require('koa-router')();
+var my_channels = require("../task/my_channels");
 router.get('/', index);
+router.get("/my_channels", function*() {
+    var data = yield my_channels;
+    this.body = data;
+    // this.body = { foo: 'bar' };
+});
+
 
 function* cool() {
     console.log("cool");
@@ -7,8 +14,7 @@ function* cool() {
 }
 
 function* index() {
-    var x = yield cool;
-    yield this.render('index', { name: x });
+    yield this.render('index');
 }
 
 module.exports = router;
