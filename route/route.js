@@ -1,8 +1,14 @@
 var router = require('koa-router')();
-router.get('/',index);
+router.get('/', index);
 
-function *index(){
- 	yield this.render('index', { name: "yangyu" });
+function* cool() {
+    console.log("cool");
+    return "yangyu"
+}
+
+function* index() {
+    var x = yield cool;
+    yield this.render('index', { name: x });
 }
 
 module.exports = router;
