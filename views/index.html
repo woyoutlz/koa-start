@@ -14,7 +14,7 @@
         <a class="btn">首页</a>
         <div>
             <li v-for="channel_obj in my_channels">
-                <a href="/channel/{{channel_obj.channel.id}}">
+                <a href="/channel?channel_id={{channel_obj.channel.id}}">
                     <img class="channel_icon" src="{{channel_obj.channel.icon}}" alt="">
                     <span>{{channel_obj.channel.name}}</span>
                     <span class="channel_badge">{{channel_obj.badge}}</span></a>
