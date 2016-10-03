@@ -9,10 +9,10 @@
 </head>
 
 <body id="app">
-    <h2>{{senses[0]["user"]["username"]}}<span class="user_profile"><span ><a href="/user_channel_page?user_id={{profile.user.id}}">channels:{{profile.user.channels}}</a></span> <span> senses:{{profile.user.senses}}</span></span></h2>
+    <h2>{{senses[0]["user"]["username"]}}<span class="user_profile"><a href="/user_senses_page?user_id={{senses[0].user.id}}"> <span>senses1</span></a></span></h2>
     <div class="row">
         <div v-for="items in senses" class="senses_div col-md-3">
-            <p><a href="/user_channel_sense_page?channel_id={{items.channel.id}}&user_id={{profile.user.id}}"><span>{{items.channel.name}}</span></a><img class="user_icon" src="{{items.user.avatar}}" alt=""></p>
+            <p><span>{{items.channel.name}}</span><img class="user_icon" src="{{items.user.avatar}}" alt=""></p>
             <p><span class="sense_info"><span class="
 glyphicon glyphicon-heart-empty"></span>{{items.likes}}</span>
             </p>
@@ -30,7 +30,7 @@ glyphicon glyphicon-heart-empty"></span>{{items.likes}}</span>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/less/2.7.1/less.min.js"></script>
     <script src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
-    <script src="/js/user_senses.js"></script>
+    <script src="/js/user_channel_senses.js"></script>
 </body>
 
 </html>

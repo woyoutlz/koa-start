@@ -36,6 +36,25 @@ router.get("/user_senses_page", function*() {
     console.log(user_profile_data);
     yield this.render('user_senses', { thing: JSON.stringify(data), profile: JSON.stringify(user_profile_data) });
 });
+router.get("/user_channel_page", function*() {
+    var user_channel_data = yield simple_get_things(`/user/${this.query.user_id}/channels/write`);
+    console.log(user_channel_data);
+    yield this.render('user_channels', { thing: JSON.stringify(user_channel_data) });
+});
+
+
+router.get("/user_channel_sense_page", function*() {
+    var user_channel_data = yield simple_get_things(`/user/${this.query.user_id}/channel/${this.query.channel_id}/senses`);
+    console.log(user_channel_data);
+    yield this.render('user_channels_sense', { thing: JSON.stringify(user_channel_data) });
+});
+router.get("/user_channel_senses", function*() {
+    var user_channel_data = yield simple_get_things(`/user/${this.query.user_id}/channel/${this.query.channel_id}/senses?offset=${this.query.last_id}`);
+    console.log(user_channel_data);
+    //console.log(data);
+    this.body = JSON.stringify(user_channel_data);
+});
+
 
 function* index() {
     // var data = yield my_channels;

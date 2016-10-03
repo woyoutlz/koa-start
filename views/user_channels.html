@@ -9,28 +9,28 @@
 </head>
 
 <body id="app">
-    <h2>{{senses[0]["user"]["username"]}}<span class="user_profile"><span ><a href="/user_channel_page?user_id={{profile.user.id}}">channels:{{profile.user.channels}}</a></span> <span> senses:{{profile.user.senses}}</span></span></h2>
-    <div class="row">
-        <div v-for="items in senses" class="senses_div col-md-3">
-            <p><a href="/user_channel_sense_page?channel_id={{items.channel.id}}&user_id={{profile.user.id}}"><span>{{items.channel.name}}</span></a><img class="user_icon" src="{{items.user.avatar}}" alt=""></p>
-            <p><span class="sense_info"><span class="
-glyphicon glyphicon-heart-empty"></span>{{items.likes}}</span>
-            </p>
-            <p><span>{{items.txt}}</span></p>
-            {% include 'part/sense.html' %}
+    <p>
+        <!-- use v-link directive for navigation. -->
+        <a class="btn">首页</a>
+        <div>
+            <li v-for="channel_obj in my_channels">
+                <a href="/user_channel_sense_page?channel_id={{channel_obj.channel.id}}&user_id={{user_id}}">
+                    <img class="channel_icon" src="{{channel_obj.channel.icon}}" alt="">
+                    <span>{{channel_obj.channel.name}}</span>
+                    <span class="channel_badge">{{channel_obj.times}}</span></a>
+            </li>
         </div>
-    </div>
+    </p>
     <div id="something" style="display: none">
         {{ thing }}
     </div>
-    <div id="profile" style="display: none">{{ profile }}</div>
     <!-- route outlet -->
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/less/2.7.1/less.min.js"></script>
     <script src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
-    <script src="/js/user_senses.js"></script>
+    <script src="/js/user_channels.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,11 @@
+<p v-show="items.media.sound">
+    <audio controls>
+        <source src="{{items.media.sound.src}}" type="audio/ogg">
+    </audio>
+</p>
+<p v-show="items.media.music">
+    <audio controls>
+        <source src="{{items.media.music.src}}" autobuffer=false type="audio/ogg">
+    </audio>
+</p>
+<p><img class="sense_photo" src="{{items.photo}}" alt=""></p>
