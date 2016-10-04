@@ -60,7 +60,7 @@ function channel_list(channel_id, page, next, out, cb) {
 module.exports = function(id, last_id = null) {
     return function(cb) {
         if (last_id) {
-            channel_list(id, 0, "/channel/1194847/senses?offset=" + last_id, [], cb);
+            channel_list(id, 0, "/channel/"+id+"/senses?offset=" + last_id, [], cb);
         } else {
             channel_list(id, 0, last_id, [], cb);
         }
