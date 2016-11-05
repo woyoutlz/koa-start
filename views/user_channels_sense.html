@@ -10,6 +10,7 @@
 
 <body id="app">
     <h2>{{senses[0]["user"]["username"]}}<span class="user_profile"><a href="/user_senses_page?user_id={{senses[0].user.id}}"> <span>senses1</span></a></span></h2>
+    {% include 'part/play.html' %}
     <div class="row">
         <div v-for="items in senses" class="senses_div col-md-3">
             <p><span>{{items.channel.name}}</span><img class="user_icon" src="{{items.user.avatar}}" alt=""></p>
